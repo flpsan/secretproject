@@ -1,0 +1,391 @@
+  <!--
+  SETINHA PRA BAIXO <img class="icon icons8-Sort-Down" width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAANUlEQVQ4jWNgGAWDE0gwMDAk4MASxBpSz8DA8B8NtzEwMLCT4pJ+JM39pGhEN4RszaOAXgAAdAYLs2ldR0AAAAAASUVORK5CYII=">
+  -->
+
+<html>
+<head>
+  <meta charset="UTF-8"> 
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet/less" type="text/css" href="css/styles.less" />
+  <script src="less.min.js"></script>
+  <script src="jquery-3.1.1.min.js"></script>
+  <script src="jquery.mask.min.js"></script>
+  <script src="validateCallbacks.js"></script>
+  <script src="eventCallbacks.js"></script>
+  <script src="forms.js"></script>
+  <script src="flp.js"></script>
+  <script src="main.js"></script>
+</head>
+
+<body>
+  <div id="templates">
+    <div class="icon-valido hide">
+      <svg fill="green" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/>
+      </svg>
+    </div>
+    <div class="loading-template">
+      <div class="loading-overlay hide" style="position:absolute;top:0;bottom:0;left:0;width:100%;background-color:#FFF;opacity: 0.6;"></div>
+      <svg class="loading hide" style="position:absolute;top:0;bottom:0;left:0;width:100%;" width="76px" height="76px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%;">
+        <circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#1976D266" stroke-width="9" r="25" stroke-dasharray="117.80972450961724 41.269908169872416">
+          <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="0.5s" begin="0s" repeatCount="indefinite"></animateTransform>
+        </circle>
+      </svg>
+    </div>
+    <div class="overlay hide">
+      <div class="aguarde hide">
+        Aguarde
+      </div>
+      <div class="dialog hide">
+        <div class="titulo">Filtro de produtos</div>
+        <div>
+          <input type="checkbox" />
+          <div>
+            Entre <b>R$100,00</b> e <b>R$1.000,00</b>.
+          </div>
+        </div>
+        <div>
+          <input type="checkbox" />
+          <div>
+            <div>Somente produtos com desconto.</div>
+          </div>
+        </div>
+        <div class="botoes">
+          <div>FILTRAR</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="sidemenu">
+      <div class="flex d-row align-center">
+        <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABIElEQVRIS+2UwU3EQAxF7RnlzJawdLB0ABUAFZBLrByhApYK4Bh5LqGDpQLogJSwdLCcR4nRSLNS2CTrSFHgAHMdz3/2908QZj44sz78EUCe58umaR4BYBUtrYwxd0VRbDWLVYuCeF3X74i4aIuJyM5ae6ZBVECWZRtEvOzrVERenHNXx6ZQAUS0A4CTAZEtM5/OBhCRD+fcchJgdotigqoemz6NMavJSw7jxyQ9tWNqrb3VxMNbdclazrX73wWkabpIkuQGEc+jPfvEhC+4EpE37/1zWZYhyr1ncAIiWgPAvWZBvF8z80NfbQcQu35FxP1/ZxRDRCrv/cXhNB3AsdyPIG2Y+bpd1wEQkYwQGixh5m+aPw+Y0v2oJf8DDh34AnP8cBm/UlXxAAAAAElFTkSuQmCC"> 
+        <div class="p-2 bold f-4">flpsan</div>
+      </div>
+      <div class="flex d-row align-center">
+        <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABcklEQVRIS92VwW3CQBBFZyzha9IBpIKQDqAClAqyB2avgQoCHZgbmjnEJTgVhBJIB6QDzuvDRBPZBBEI9kYoUnz17rx9M99rhAs/eOH68A3gvdffQpl5V/fvAPunaGpU2zcy+D+Afe1TAahto1p0cUDTAdu6KIM2gGNrT34HMSmKAhzTJqICEUcN7IqzBscAba6Ts4BTpySiDQDMRCQ/XENErnrXiwZ472eqOhKROyLKEPFRVRciMvHerwGgYOZZ9HXtnLvudDprRMxDCFmaplkIYZKm6URVXVmW/TzPtztAm74CwD0zF0TUR8QVADwz87Qycao6EBGz+PoftATMTb+yeEXEN2Z23vtcVW/Lshza6aMAqvouIj3bTEQrRNxY8XrQFaQrIsNDgBGvGmR7ysxZnRTrtfUdAJ4sOSGEhc2mTthuBuPxeGADQ8TuT5AkSW6Wy+Wm+tg++1wVr7fNAWCrqg+WsKgUtZlXFKDpVaGqLx+x3wNKgmNB+gAAAABJRU5ErkJggg=="> 
+        <div class="ml-6">Meus pedidos</div>
+      </div>
+      <div class="flex d-row align-center">
+        <img class="icon" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAv0lEQVRIS82VsQ0CMQxF7SYttxErMEKucc0IjEDt5jICK7DR0aYxSoEUDoX4gr5Euij2f98/UsIEXgzWJzcgxjiFEJZiKOc8p5RWjzkXQEROZrYw81REzWxl5llVbz3IB0BErNVkZvdyxszHVo2qvml6AQ8iuqjqtQiLyLnsieiwBbkB28JeFK/J/wtQu/p2N8X10ARwQC/3+nxoAjgAHhEcAI8IDoBHBAfAI4IC9ojXte7XFAYYFW71uf7kX6BPGwDOGWNR7MIAAAAASUVORK5CYII=">
+        <div class="ml-6">Meu cadastro</div>
+      </div>
+      <divider></divider>
+      <div>Categorias</div>
+      <div class="flex d-row justify-space-between align-center">
+        <div class="flex d-row align-center">
+          <img class="icon" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA30lEQVRIS+2WwQ2DMAxFv2GAjtB2hG7SEThx7wSlWyDnwgrdpCPABmzgKihBISJKKHAqOVky/Iftb4Cw86Gd9TELKMtSNJiZKRTrvMm1AD5Zlj3qutbx5GwBGARFpM/z/OZDNgMYyFspdXdL2BQAoGXm656AYW7JABFpiKgw5Y+xFbEGcAVTAT2A05yFRaRTSl0cF00uSwVUAJ6BHXkxs85bmy4HmJsrESmI6Gxa1BFRY8VXA+xjuYvmV/TzDFyhAxB9m6a0yLdmdNGWzuAAjB+f0B78eYvW/hRE92At4AsVg+oZl5wg6gAAAABJRU5ErkJggg==">
+          <div class="ml-6">Alimentação</div>
+        </div>
+        <img width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4T2NkoBAwUqifYbgYkJCQIMDKytr/+/fvwgULFnzAFy7oasFhkJqaasDIyHjg////93///u2IyxCo5v2MjIyK////d5g9e/YFeCASMgSbZpDlKLGAyxBcmjEMwOYdkBgrKyuKs5HDCGs6QHYJ2BYkP6MHMM6EBDMEpAEWYNhiB29KBBkC0gQKbVxROwySMgA4LXQRFPr5qAAAAABJRU5ErkJggg==">
+      </div>
+      <div class="flex d-row justify-space-between align-center">
+        <div class="flex d-row align-center">
+          <img class="icon" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACQ0lEQVRIS7VVXW7aQBCeMcKvSU7Q5ATpDQonaHoCiMSueCs5QcgJQt/QrqXYJwg5QThCOEHTE7R5XYud6kNrZAy2qVT2cXY838/sjJlOfPjE9emfAcbj8eV6vb5n5qExpvX71gQo1FqLiCyJaEFEU2Y+R/y/AlSszKIoms7n8/c2i1sVjEajHjMPYElRTETeiOhNRLIkSaCs9tQCBK+fmLnXVADWdTqd2zo1BwGUUp+J6BVei8gvZp6hkLUWzAn3ABaRCTN/EpE/RNQv7suE9gCGw+F5t9v9GRqZOecmaZqiwN5BbhzHMyIaACTP86tq7h6AUmrGzN9F5MVae9PWxKBowcxfiejBGDNtVKC1Btsz59xFHfMqaFDyGyqstRe1AHgxURS9ltlrrcHovszuUEwptVHhve+XX9bWovAcn4P3W6kYsoJRMVg1sQ2RasO3AIU1RJR579OCxbEKgnrMyoCI3o0xVyB2CGAaRVF2zJSWvcbceO9RHEo+jDGbdbIFUEoNmfkJQRG5tdamRQE0sdrwaqzu+51nWiSFoeqHmXjEUHnvJ0mSvIRnCTLwe5nn+R3AlVJLZv5SJbcDEJ4bFtgZEd0559I4jrFrrmvmYeWc68VxDO8fy9YU+XuDprXGcD0HqybW2h9B2aQEtBKRGWzUWiOO4jjfjDFY6dtTt4vK/YD0VERWlV10LSLI2yzDqjW1CoqLoASNhl1N54OI8HfbYd4KgITQZFh2w8yXFYvQq0We54umldL6wzlm2TXlnBzgL3ilXSjcoEVbAAAAAElFTkSuQmCC">
+          <div class="ml-6">Bebês</div>
+        </div>
+        <img width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4T2NkoBAwUqifYbgYkJCQIMDKytr/+/fvwgULFnzAFy7oasFhkJqaasDIyHjg////93///u2IyxCo5v2MjIyK////d5g9e/YFeCASMgSbZpDlKLGAyxBcmjEMwOYdkBgrKyuKs5HDCGs6QHYJ2BYkP6MHMM6EBDMEpAEWYNhiB29KBBkC0gQKbVxROwySMgA4LXQRFPr5qAAAAABJRU5ErkJggg==">
+      </div>
+      <div class="flex d-row justify-space-between align-center selecionada">
+        <div class="flex d-row align-center">
+          <img class="icon" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABuElEQVRIS+1UwW3CQBDcBdnf0EFIB3QQqCB0gB/cfUMqCKkAnugOKU4HlAAdkAoCFQS+GN1Gg4xl8FkQEqQ8si/LupvZnZlbpisXXxmf/jaBUmpCRPdE1LLWzn1q/GgCrbXkQJ+MMcNjkosJtNYxEXVygC/GmP6vEGite0QEsBsRWTLzcLPZxGEYRkS0MMZAul2VThBFUS0Mw0cRaRJRg5lrIgKdV8w8dc7NmLmeJMkkjuOVUipi5leAViqVu9FotCglwGEiGgD0RIwBEotInZlxZ1ciMrXWtrwE+U4ufSMiMrPWYvJDiSBLEAQfZ3Tu435zzsF42m63c8hWIPAk45wh1iLSq1ar073u+UuZyampnx7ENdJSwvQuIjC3JyK3e929BGn0BsdAaXKQGJi4I0I0EVN07ZzDnfZxegoxxbNn5gdfpyARkT4zL5MkWQRBgNR00u6zpDnnWuPxeFo2AUwpk+IcLw7yX5jgQoMz4nw0vRPgp9Yaz//5rHYPDyFJTd9GLayKbrfbZGbojTV8slLD299e10qpBhEhOdhD+M78SUGxlybW2t3jKquL1/XJ0dID/wQnlfoC+NLEGVnCglgAAAAASUVORK5CYII=">
+          <div class="ml-6">Carnes</div>
+        </div>
+        <img width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4T2NkoBAwUqifYbgYkJCQIMDKytr/+/fvwgULFnzAFy7oasFhkJqaasDIyHjg////93///u2IyxCo5v2MjIyK////d5g9e/YFeCASMgSbZpDlKLGAyxBcmjEMwOYdkBgrKyuKs5HDCGs6QHYJ2BYkP6MHMM6EBDMEpAEWYNhiB29KBBkC0gQKbVxROwySMgA4LXQRFPr5qAAAAABJRU5ErkJggg==">
+      </div>
+      <div class="flex d-row justify-space-between">
+        <div class="bold" style="margin-left:6em;font-size:.8em;color:var(--cor-fundo-botao-3);">Frango</div>
+      </div>
+      <div class="flex d-row align-center">
+        <div style="margin-left:6em;font-size:.8em;">Frango</div>
+      </div>
+      <div class="flex d-row align-center">
+        <div style="margin-left:6em;font-size:.8em;">Frango</div>
+      </div>
+      <div class="flex d-row align-center">
+        <div style="margin-left:6em;font-size:.8em;">Frango</div>
+      </div>
+      <div class="flex d-row justify-space-between align-center">
+        <div class="flex d-row align-center">
+          <img class="icon" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABpklEQVRIS8WVUU7CQBCGZzaBZz2BcAK5gXgC9QRCwm54U0+gnkB8IzMk4AnEG9QTqCewnkB8I2zomG2oQexuWyNxX9qkk/l2Zv5/irDlg1vOD6UAvV6vrZQaA0BjdaE4SZLuaDSKii5YCqC1jhFxbyNZTETNPwEYYyQvEREVXrAwoN/vN5Ikec0DLBaL3clkMgtVUQjQWg8Q8QwA7oio45IZYyYAcAoA10R09WuAMeYYAO4B4EMp1RoOh7FLtlHVCRFNfRBvBS7Jcrl8QsQdEekys7v119FadxBxLCIza23T1yovIGuNiDwws6vkx9FaTxHxSERumfk8LyYEyJOmrxNeyXoBPmn6CD7J/h/A497cAkTkjZmzNfItJjSDCBEPilaB+y4ij8zcrjrkVCElAV6lhWbgHHoZcqsxpjAmBHC6vllfEZvVZD4AgAsiGlRtUTqDkInWzBgx82ElQOYDpVRzPp/ParXaPiKmgxSRyFr74t7r9fq7e1b2gda6ioqqD3m17NyqTpXkpAgAz6s2tDIJu11lre1UXnZl5FkmpvCHUyZJKOYT4nfSGZW6QO0AAAAASUVORK5CYII=">
+          <div class="ml-6">Bebidas</div>
+        </div>
+        <img width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4T2NkoBAwUqifYbgYkJCQIMDKytr/+/fvwgULFnzAFy7oasFhkJqaasDIyHjg////93///u2IyxCo5v2MjIyK////d5g9e/YFeCASMgSbZpDlKLGAyxBcmjEMwOYdkBgrKyuKs5HDCGs6QHYJ2BYkP6MHMM6EBDMEpAEWYNhiB29KBBkC0gQKbVxROwySMgA4LXQRFPr5qAAAAABJRU5ErkJggg==">
+      </div>
+      <div class="flex d-row justify-space-between align-center">
+        <div class="flex d-row align-center">
+          <img class="icon" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAtElEQVRIS+2V0Q1CIQxFWxZ4I6ibOMozAYYqJDqKo+AGTkANfqmxpXmG+APfzT3tbXNBGPxwsD6ogBgjf2mg1FpPOeerpbktgKZbiOjwM+BV4HMaIjLZayqydCrVmADCLsAyxX8B3vujc+4MAHvBgu5FqROEEAoi7jo7UC9q65m+MbVdTMDTqmlRNymmRUMtugPAohGY+ZZSkrJK/zJb2CHiRcqjJs7Mq/Z9muK665FSMBzwADftZBnTm0r6AAAAAElFTkSuQmCC">
+          <div class="ml-6">Higinene Pessoal</div>
+        </div>
+        <img width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4T2NkoBAwUqifYbgYkJCQIMDKytr/+/fvwgULFnzAFy7oasFhkJqaasDIyHjg////93///u2IyxCo5v2MjIyK////d5g9e/YFeCASMgSbZpDlKLGAyxBcmjEMwOYdkBgrKyuKs5HDCGs6QHYJ2BYkP6MHMM6EBDMEpAEWYNhiB29KBBkC0gQKbVxROwySMgA4LXQRFPr5qAAAAABJRU5ErkJggg==">
+      </div>
+      <div class="flex d-row justify-space-between align-center">
+        <div class="flex d-row align-center">
+          <img class="icon" width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACOUlEQVRIS7VV7W0aQRCdWcH9Da4gdgd2BaGD4ApyltgVP50KYlcQ/A/NInGpIE4FJhUk6YB0EP4e4iZ6p120HD4+ErG/jrvZeTNv3huYznz4zPlpA+CceyCiT0T0KCJ4/qeDPMaYYjKZLJAgBdCYUUTq9865n6qq3vubY9CGw2HfGPOiqr+995dNgJ0OAIAgEbk+BsBaO2fmd0T0UUTGWwDHJNgXE6tHjDHmaoei/wWI1avqd+99P+bbUVGoZIaAqqruptPp/BB4Wr2q3nnvi1YAa+2Cmd+GgIWIXLUBIHGn01ms1+sicE9lWV4URfGnFcA5h49vEJCqIQXJ87zX7XZfmLk5/C8ikqexr1LEzHWLqpo3KULyLMt+EFEtw/SoKlQHimr1nayikBzzGRDRL1XtJXTGnFu0Hr0qrLWgYxZoWRpjriFF59xAVe/jDIJvNnkPAiABEX0IVeM+Ks9TGvASBTAzqIMx2wHCTsKGgJZxqZfw/FiW5ThVSfwWCvmKAlLn73TgnNvspKgkDL0tMSpHN3FZquqT9/5+n0yhIFCC8ywit3gI0hykJnLOFao6BkDin1sRed6rIlyMIJAeM89V9Wa1Wg1AT6KmJXRvrc2Zefaab1qH7JxDm9iwtenQTVVVT8YYzOQzEV2UZVl7IfqiuSYO+mA0Gl2ma6DhqwdV/YYimPl9c7gnGS0sM6wASDZ2lOItobqmdA920Ki4HnSWZf1EwvhzwUrZ2qDpvYNGa4Kc+vvsAH8BaykrKJvBxSAAAAAASUVORK5CYII=">
+          <div class="ml-6">Limpeza</div>
+        </div>
+        <img width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4T2NkoBAwUqifYbgYkJCQIMDKytr/+/fvwgULFnzAFy7oasFhkJqaasDIyHjg////93///u2IyxCo5v2MjIyK////d5g9e/YFeCASMgSbZpDlKLGAyxBcmjEMwOYdkBgrKyuKs5HDCGs6QHYJ2BYkP6MHMM6EBDMEpAEWYNhiB29KBBkC0gQKbVxROwySMgA4LXQRFPr5qAAAAABJRU5ErkJggg==">
+      </div>
+    </div>
+    <div class="central">
+      <div class="head">
+        <svg class="icon-menu" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>        
+        <img width="100px" src="multimidia/logo.png">
+      </div>
+      <div class="body">
+        <div class="topo">
+          <div class="breadcrumb">
+            <div class="voltar-icon" tooltip="Voltar">
+              <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+            </div>
+            <!-- 
+            *** BREADCRUMB PARA LISTA DE PRODUTOS ***
+            
+            <div tooltip="Página inicial">
+              <svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                  <path d="M0 0h24v24H0z" fill="none"/>
+              </svg>
+            </div>
+            <div>
+              <svg fill="#FFFFFF" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                  <path d="M0 0h24v24H0z" fill="none"/>
+              </svg>
+            </div>
+            <div class="pagina">Higiene Pessoal</div>
+            <div>
+              <svg fill="#FFFFFF" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                  <path d="M0 0h24v24H0z" fill="none"/>
+              </svg>
+            </div>
+            <div class="pagina atual">Shampoo</div>
+            -->
+            <div class="pagina atual">Cadastro</div>
+          </div>        
+        </div>
+        <divider></divider>
+        <!--
+        *** CONTEÚDO MEU CADASTRO ***
+        <div class="form form-cadastro">
+          <div class="group">
+            <div id="email" class="input">
+              <input type="text" maxlength="50" />
+              <label class="placeholder">Email</label>
+            </div>
+          </div>
+          <div class="group">
+            <div id="senha" class="input">
+              <input type="password" maxlength="20" contador />
+              <label class="placeholder">Senha</label>
+              <label class="helper">Mínimo 6 caracteres</label>
+            </div>
+            <div id="confirmacao-senha" class="input">
+              <input type="password" />
+              <label class="placeholder">Confirmação</label>
+              <label class="helper">Confirmação da senha</label>
+            </div>
+          </div>
+          <div class="group">
+            <div id="nome" class="input">
+              <input type="text" maxlength="50" />
+              <label class="placeholder">Nome</label>
+            </div>
+          </div>
+          <div class="group">
+            <div id="cep" class="input" >
+              <input type="text" />
+              <label class="placeholder">CEP</label>
+            </div>
+          </div>
+          <div class="group column">
+            <div id="endereco1" class="input">
+              <input type="text" from="cep" disabled />
+              <label class="placeholder">Logradouro</label>
+            </div>
+            <div id="endereco2" class="input">
+              <input type="text" from="cep" disabled />
+              <label class="placeholder">Bairro, Cidade</label>
+            </div>
+          </div>
+          <div class="group">
+            <div id="numero" class="input">
+              <input type="text" maxlength="7" />
+              <label class="placeholder">Número</label>
+            </div>
+            <div id="complemento" class="input">
+              <input type="text" maxlength="20" />
+              <label class="placeholder">Complemento (opcional)</label>
+            </div>
+          </div>
+          <div class="group">
+            <div id="telefone1" class="input">
+              <input type="text" maxlength="10" />
+              <label class="placeholder">Telefone 1</label>
+              <label class="helper">Ligaremos para este número somente em caso de dúvida em alguma compra</label>
+            </div>
+          </div>
+          <div class="group">
+            <div id="telefone2" class="input">
+              <input type="text" maxlength="10" />
+              <label class="placeholder">Telefone 2 (opcional)</label>
+              <label class="helper">Para o caso de não conseguirmos contato no primeiro telefone</label>
+            </div>
+          </div>
+          <div class="flex justify-end mt-4">
+            <button class="limpar">LIMPAR</button>
+            <button class="salvar">SALVAR DADOS</button>
+          </div>
+        </div>
+        -->
+        
+        <!--- 
+        *** form models ***
+        <div class="form">
+          <div class="group">
+            <div class="input">
+              <input type="text" class="erro" />
+              <label class="placeholder erro">Endereço *</label>
+              <label class="helper erro">Erro: Campo obrigatório</label>
+              <label class="helper">Ex.: Rua dos Açores</label>
+            </div>
+            <div class="input">
+              <input type="text" />
+              <label class="placeholder">Nº</label>
+              <label class="helper">Ex.: bloco 2</label>
+              <label class="sufixo">R$</label>
+            </div>
+          </div>
+        </div>
+        -->
+        <!-- 
+        *** CONTEÚDO LISTA DE PRODUTOS ***        
+        <div class="flex d-row justify-end align-center p-1">
+          <div class="flex d-row align-center wrap">
+            <div class="chips">
+              <div>
+                <span class="destaque">Valor:</span> até R$100,00
+              </div>
+              <div class="fechar">
+                <svg fill="#FFFFFF" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                </svg>
+              </div>
+            </div>
+            <div class="chips">
+              <div>
+                <span class="destaque">Valor:</span> até R$100,00
+              </div>
+              <div class="fechar">
+                <svg fill="#FFFFFF" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="ml-5 p-1" tooltip="Remover filtros">
+            <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 16h4v2h-4zm0-8h7v2h-7zm0 4h6v2h-6zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM14 5h-3l-1-1H6L5 5H2v2h12z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          </div>
+          <div class="p-1" tooltip="Filtrar produtos">
+            <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <divider></divider>
+        <div class="produtos">
+          <div class="produto">
+            <img src="multimidia/produto.jpg" height="150px" width="150px" />
+            <div class="valor">10<span>,00</span></div>
+            <div class="nome">Shampoo Seda Ceramidas Flores do Campo 300ml</div>
+            <button class="add">
+              ADICIONAR
+              <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABT0lEQVRIS8VV7U0DMQx9bwJgAugk0A1gAsoGjACTABMAE1A2YAPaCegGD/mUnNJcknOACv+JdHL8PmL7iAMHD1wf3QCSZKRIuu6OSfFiUPREclVS91cAOwALknbuxY8BYhVJawDnAO5J3tn3TN1EWGqXpA2AD5KXg5UFhhcA3gDsSJ70AEgyWx8AvFYBQsGo4obkY0qiZVFgfwpgSdJqlLtIksl7BrAhufAAJOzfSZoLQ1RbLWFzRfIleaNim5bYzwFEP9ckl62BrLFvAoS3sI4wT70xeu+x6AzAp7cygD3vPQDWPde1i17g4iNLOg7s7ZzI9hZvtakV/uopNFqSLcFWm94CsFVx1AOUb1nXyu0ByHNbCmwaba9Y2MoYRj8PSc08zyRbzcnKSCY7nZVJXgvA/gXR/y1Jm4uSgmbenEVxk65mLKrm/d8j/6Zz0rvfczCrGcN00QkAAAAASUVORK5CYII=">
+            </button>
+          </div>
+          <div class="produto">
+            <img src="multimidia/produto.jpg" height="150px" width="150px" />
+            <div class="valor">10<span>,00</span></div>
+            <div class="nome">Shampoo Seda Ceramidas Flores do Campo 300ml</div>
+            <button class="add">
+              ADICIONAR
+              <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABT0lEQVRIS8VV7U0DMQx9bwJgAugk0A1gAsoGjACTABMAE1A2YAPaCegGD/mUnNJcknOACv+JdHL8PmL7iAMHD1wf3QCSZKRIuu6OSfFiUPREclVS91cAOwALknbuxY8BYhVJawDnAO5J3tn3TN1EWGqXpA2AD5KXg5UFhhcA3gDsSJ70AEgyWx8AvFYBQsGo4obkY0qiZVFgfwpgSdJqlLtIksl7BrAhufAAJOzfSZoLQ1RbLWFzRfIleaNim5bYzwFEP9ckl62BrLFvAoS3sI4wT70xeu+x6AzAp7cygD3vPQDWPde1i17g4iNLOg7s7ZzI9hZvtakV/uopNFqSLcFWm94CsFVx1AOUb1nXyu0ByHNbCmwaba9Y2MoYRj8PSc08zyRbzcnKSCY7nZVJXgvA/gXR/y1Jm4uSgmbenEVxk65mLKrm/d8j/6Zz0rvfczCrGcN00QkAAAAASUVORK5CYII=">
+            </button>
+          </div>
+        </div>-->
+      </div>
+    </div>
+    <div class="carrinho">
+      <div class="flex d-row justify-space-between topo align-center">
+        <div class="flex d-row align-center">
+          <div class="mr-4">
+            <svg fill="#FFFFFF" height="32" viewBox="0 0 24 24" width="32" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          </div>
+          <div>Carrinho</div>
+        </div>
+        <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA50lEQVRIS92V0Q3CMAxEnzdgExgBJoINoBuwEYwAm7BBkKUUoeA6B6g/zWcb34vti2PMvGxmfRYKKKWcgLOZPZQSllJWwN7Mhnb/R4mq+BG4AbsepIpfgA0wmJkf7rUigJ/mCqx7kEb8DmzbA4VNroEpRBH3NCZdlEFU8RTgPyNILe5Y87AsaQ9aFwQQ3+IN7Yp3MxhhDcQ/S+LfAsayeJxkYQkQNNTjuhYes09nUeSWGijdE8WmoVuUe5JmoPhchUyNCsnnCiQbdpIVG0h/2NUb/Mu4PrSTVLKp8h5kexb6ZP5blvf4JyXimhmYf0rAAAAAAElFTkSuQmCC">
+      </div>
+      <div class="carrinho-total">
+        <div>Valor Total</div>
+        <div>R$10.232,00</div>
+      </div>
+      <divider></divider>
+      <div class="container-produtos">
+        <div class="produto-carrinho flex d-row p-2">
+          <div class="img">
+            <img src="multimidia/produto.jpg" height="100em" width="100em" />
+          </div>
+          <div class="flex d-column justify-space-between ml-2">
+            <div class="flex d-row justify-space-between">
+              <div class="nome">Shampoo Seda Ceramidas Flores do Campo 300ml</div>
+              <button class="sem-estilo">
+                <img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA/UlEQVRIS92VMRKCMBBFNwWpvYkeQW9CRas3UG5gnYqb6BH0JtahwFkFJrMk2Y8ODZQh+1/y87MxtPBnFtanlQKqqrp4769N07wQC8uy3Fhrj865Ws6fWMTiRHTuuu7Rtu1Bg7B4URQ3Y8yOiGrnHNeP3wTQr+ZORFsNIsSf3vu9XFD0kBEIIs7bSKYoB0HFswD+GYPweOB51JbsGcgUSMhnVd8DVcXVHQywENKPQeKzAIEtpKVrtkWh532xGuEBku1FsbRwobUWuidqTFNpQe5JdgdIzlFItFWgOUcgyWaH5lxEWG927N2P7fokOyl8D5A3ITVnpU/mP5bI2jcxdQYocIkuigAAAABJRU5ErkJggg==">
+              </button>
+            </div>
+            <div class="flex d-row justify-space-between align-center wrap">
+              <div class="preco subtotal"><span>R$</span>19.302<span>,15</span></div>
+              <div class="flex d-row align-center">
+                <button class="secundario">
+                  <img width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAVklEQVRIS+2VMQoAMAgDm/8/2uJgJyFxcCikc2r0VMRZfliOf0YGERGZEAD5nyzMwDag/TaizxFVA2kZoqCW8S3auoGSmMeUUjIiI2oJjE4mZdgI1g0uC3ZQGd/3LX4AAAAASUVORK5CYII=">
+                </button>
+                <div class="quantidade mh-1">12</div>
+                <button class="secundario">
+                  <img width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAASElEQVRIS+2TSQoAMAgDzf8fnT6glgFBeonnLDKoanm0nF8pQMJBFERIAAXtFdk2OhuBpCvvT8Fk+5cnj4Y0gyiIkAAK1q/oAKsvCBnlh7jIAAAAAElFTkSuQmCC">
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+      <div class="menu flex d-row align-center wrap justify-center">
+        <button class="grande finalizar-compra flex d-row align-center">
+          FINALIZAR COMPRA
+          <!-- Finalizar pedido Filled icon by Icons8 -->
+          <img class="icon icons8-Finalizar-pedido-Filled" width="32" height="32" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACOElEQVRYR8WX4VHcMBCF36uA0MFRQaACQgUJFYRUACWQCnJUAKkgUAFQQaCCJB1ABZv5LtKNYuyzZB+D/tyMT979tPt2vbLeeDkiTiR97uF4kPTdNr+vtgCIZP1e0l3h6YOkQ0lHtsvnW4UB4FwSzs66p42IKyBs723Va2HMmwxHxL6kn5L2bP9+DYiNADiMiKcUHaJRtSJiUQtcA3At6ck2Yq1aEYFw0Rb64QCDqwbgTNJpiw5S6hDurzGIGoBJOqiFGAUodPBDEkL8Y/sqhfl9VU7+9ZOTBPUxvXND1dUCoIP8Iu/nslxsAHgn6RLgVObsvZXEc9YKqhYAHXwrnBGJoaq4SPtwhn16TNc5W45tX9cCZB2MRZz0LCKCiOF0yPlqH8aqAAod7IwRSNpNjqmCvpNj4sI2UW0C6OpgiIUeQHsnajjJOS/3rztrSwS6OqgIRu+WR9vArVYLQK0OxsC+UMbNAI06GIJ4Rhdle66OQAKo1cEQwKr2yz9bAebq4MVw0wowRwfr2p8cgZk6+Gqb8vxvNUVghg4Q337fkDIFoHk+2FSXUwDo73xotjInNgMUOmCKrp4Th6IwFWCZ5gPSQWudPDFPBeADw+nLIWWsBT/YPphdBdlA8c0nCvl6d1Q4+JSe587HSDevEZX0EUHYl7aX3APSBHyQb1f5xmUb0XK/YD646/aCSSlIBkkBQynNhVPifD0jRgQR4NT8R8rQzVYjkI1ys37EUc/dEjhSxOXkvK9q/gK0jfQhsD4MqQAAAABJRU5ErkJggg==">
+        </button>
+      </div>    
+    </div>
+
+  </div>
+  <div class="carrinho-floating-icon">
+    <img class="icon" width="42" height="42" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACPklEQVRoQ+1Z0VXDMAzUTQBMQLtB2aAbUCYAJqBsABMAG8AEwATABMAG7QTABOLdewkvTVLHcmo7eQ9/N7LOdzrZKmTkCyPPX/4B5GawwYCqqiOpBwBnuZOu7m8FsAIwHTMA5n4E4GMoIKwMMO87AMvBAqgnpqoLEXkcQMIrEbkE8OSsgbZEVfVbRPaGAKJeg159QFXvReR0AADWACYhDAxFRtcArswA+MFAZHQAgHL+W14SKgDkllFrE7UAyC2jKQA60cbyBpBZRm8A5m0mYgWQS0Yndf8vwVgBzETkPbGdNqwzqIjLj1SVOjxMCOIcAJlvXSYGijq4FZGLRAB+RGRSt86+DKSUUaNx9XKhDDJqtc5eDCSUkdfrz1wDBQB68kvkOvB6OIUCoJWyFmKtrY2rdw2oamwXWovIwvfZamJgy+vMS6uxqPIGoKqUDHW/X0nmU0TmLp+Olbj5KqGqfIseVxJik2HyWScUFgbqA6+tF6zYpx7UBzomdtFyBuA8ZAsDdQlFS3rjhHcIgEX8mnq8sjMGig5MEJzK8XmZZE60UwBJNGPcxLsGjHGT/dwEQFU5Fbup3IPYAzivbEwLLAj6xPUGUGzCS1y1EzNPDpp4cwwC0TeuBYDLRp8BsLDNq6XDV2N0xrUA+Go5/XKz4H9uVLVXXAsA14jdOfpw0dIxc+2MawEwegnRgeg69QbGW+msZxEHx/VmoOjEBMEXWfmc5MbL0ORLaRVOFBTXBMBsMQk++AeQ4JCdW4yegV8C0u8xL/y5MgAAAABJRU5ErkJggg==">
+  </div>
+  </body>
+</html>

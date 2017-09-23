@@ -1,0 +1,38 @@
+.container(style='border-top:1px solid Silver;background-color:white;')             
+  .row
+    .col-xs-12        
+      .row(onclick='$(\'.filtros\').toggle();' style='border-bottom:1px solid #e2e2e2;')
+        .col-xs-12
+          .row.p-05(style='background-color:#efefef;')
+            img.mr-05(src="/img/p/Condicionador Clear Hidratação Intensa 200ml.jpg" width='32px' style='cursor:pointer;')
+            span.m-0.c-vm.c-fs-grande(style='cursor:pointer;')
+              b Filtros 
+            button.btn.c-btn-ssm.c-vm.btn-info.float-xs-right(style='margin:.5em .5em 0 0') Limpar filtros
+          .row.filtros.p-1(style='background-color:#e8e8e8;')
+            .col-md-4
+              .row
+                h6 Valor até
+                #slider.mr-2.ml-2.mt-1
+                input.form-control#amount(type="hidden")
+            .col-md-4
+              h6 Marcas
+              span.tag.tag-info.mr-05 Bombril
+              span.tag.tag-info.mr-05 Veja
+              span.tag.tag-danger.mr-05 Coca-cola
+              span.tag.tag-info.mr-05 Bombril
+              span.tag.tag-info.mr-05 Veja
+              span.tag.tag-danger.mr-05 Pepsi
+            .col-md-4
+          .row.filtros.filtros-aplicados.p-1(style='background-color:#efefef;')
+            h6 Filtros aplicados
+            span.breadcrumb-item.active.small 
+              span Valor: 
+              span.c-btn-filtro Até R$20,00   
+                img(src="/img/ic_remove_circle_black_24dp_1x.png")
+            span.breadcrumb-item.active.small 
+              span Marca: 
+              span.c-btn-filtro Bombril 
+                img(src="/img/ic_remove_circle_black_24dp_1x.png")
+              span.c-btn-filtro Activia  
+                img(src="/img/ic_remove_circle_black_24dp_1x.png")
+                    

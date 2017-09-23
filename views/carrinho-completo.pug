@@ -1,0 +1,18 @@
+doctype html
+head
+  include head-padrao
+body(style='background-color:#F1F2F2')
+  include header
+  .container
+    .row
+      .col-xs-12
+        //------- Migalha Produtos -------
+        .row.p-1
+          .col-xs-8
+            h4 Meu carrinho > Finalizar compra
+  .container
+    .row
+      .col-md-6
+        include carrinho
+      .col-md-6
+        ='DETALHES'

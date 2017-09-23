@@ -1,0 +1,111 @@
+.form {
+  .p-2;
+  .flex; .d-column;
+  .group {
+    .flex; .d-row;
+    position: relative;
+    &.column {
+      .d-column;
+    }
+  }
+  .input {
+    .flex; .d-column;
+    flex: 1 1 50%;
+    .pt-5; .pb-1; .m-1;
+    .black90;
+    position: relative;
+    .sufixo {
+      .f-3;
+      position: absolute;
+      top: 1.4rem;
+      transition: 0.2s ease all;
+    }
+    .icon-valido {
+      position: absolute;
+      right: .2rem;
+      top: 1.3rem;
+      pointer-events: none;
+      & ~ .contador {
+        right: 1.7rem;
+      }
+    }
+    label {
+      .black60;
+      width: 100%;
+      &.contador {
+        position: absolute;
+        width: 3em;
+        text-align: right;
+        right: .2rem;
+        top: 1.5rem;
+        pointer-events: none;
+        .f-3;
+      }
+      &.nowrap {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      &.placeholder {
+        .nowrap;
+        position: absolute;
+        top: 1.2rem;
+        left: 0;
+        pointer-events: none;
+        transition: 0.2s ease all;
+        &.float {
+          top: .0rem !important;
+          .f-3;
+          color: @azul;
+          .erro {
+            color: red;
+          }
+          &.sem-foco {
+            color: @cinza;
+          }
+          &.erro {
+            color: @vermelho;
+          }
+        }
+      }
+      &.helper {
+        .mt-1;
+        .f-3;
+        &.erro {
+          color: @vermelho;
+        }
+      }
+    }
+    .helper.erro ~ .helper {
+      display: none;
+    }
+    input {
+      caret-color : @azul;
+      border: 0;
+      border-bottom: 1px solid @cinza;
+      padding-bottom: .4rem;
+      min-width: 0;
+      padding-right: 3em;
+      .f-4;
+      &[contador] {
+        padding-right: 4em;
+      }
+      &:focus {
+        border-bottom: 2px solid @azul;
+        margin-bottom: -1px;
+      }
+      &.erro {
+        border-bottom: 2px solid @vermelho;
+        margin-bottom: -1px;
+      }
+      &[disabled] {
+        background-color: transparent;
+        color: @cinza_claro;
+        border-bottom: 1px dashed @cinza_claro;
+      }
+      &[disabled] ~ .placeholder {
+        color: @cinza_claro;
+      }
+    }
+  }
+}

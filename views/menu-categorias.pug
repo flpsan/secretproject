@@ -1,0 +1,15 @@
+.container(style='border-top:1px solid Silver;background-color:white;')
+  .row
+    .col-xs-12
+      .row.categorias
+        each categoria in categorias
+          .col-md-2.p-0()
+            - var url = '/listar-produtos?categoria=' + categoria.id;
+            button.btn.btn-lg(onclick='window.location=\''+url+'\'')= categoria.nome
+      .row.categorias.sub
+        span.h6.p-1 Subcategorias:
+        each subcategoria in subcategorias
+          if subcategoria.quantidade_produtos > 0
+            - var url = '/listar-produtos?subcategoria=' + subcategoria.id_subcategoria;
+            button.btn(onclick='window.location=\''+url+'\'')= subcategoria.nome_subcategoria + ' '
+              span.tag.tag-default= subcategoria.quantidade_produtos

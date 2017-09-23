@@ -1,0 +1,13 @@
+#carrinho-float.p-1.fixed-top.fixed-bottom(
+  style={ display: none,
+    'font-size': '14px',
+    'background-color': '#efefef' })
+  .container.d-flex.flex-column
+    .row.border.rounded(style='background-color:orange;')
+      .col.d-flex.justify-content-center
+        img(src='/img/cart-icon.png' style='width:50px;height:50px;')
+    .row.conteudo-carrinho(style='display: none; overflow: auto;')
+      include carrinho
+    .row.border.rounded(style='background-color:orange;')
+      .col.d-flex.justify-content-center
+        a(href='/carrinho-completo') Finalizar compra

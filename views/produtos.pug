@@ -1,0 +1,36 @@
+doctype html
+head
+  include head-padrao
+body(style='background-color:white')
+  include header
+  .container-fluid
+    .row
+      div
+        .container-fluid
+          .row
+            .col
+              //------- Migalha Produtos -------
+              .row.p-1
+                .col-8
+                  h4 Farinhas e grãos > Cereais
+                .col-4
+                  .float-xs-right
+                    small.mr-1 Ordem: 
+                    select.custom-select
+                      option Preço (maior para menor)
+                      option Preço (menor para maior)
+          .row
+            each produto in produtos
+              .col-xl-3.col-lg-4.col-md-6
+                .card
+                  img.img-fluid(src='/img/p/' + produto.id + '.jpg')
+                  .card-block 
+                   .h5= produto.nome
+                   p.card-text= 'R$' + produto.valor_formatado
+                   .tag.tag-info.mr-1= produto.fabricante
+                   .tag.tag-default= produto.volume_peso
+                  .card-footer
+                    .a(style='background-color:darkslategray;padding:.5em;display:inline-block;border-radius:.5em;', onclick='adicionarProdutoNoCarrinho(this);' data=produto)
+                      img(src="/img/add-to-cart.png" alt="Adicionar ao carrinho" style='filter: invert(100%);width: 26px;')
+      div.d-flex(style='width:400px;right:0;top:0;')
+        include carrinho

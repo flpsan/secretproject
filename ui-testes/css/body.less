@@ -1,0 +1,64 @@
+.hide-on-mobile { @media @mobile { display: none; } }
+.hide-on-web { @media @web { display: none; } }
+.show-on-mobile { @media @mobile { display: inherit; } }
+.show-on-web { @media @web { display: inherit; } }
+
+.body {
+  .topo {
+    .flex; .d-row; .align-center; .justify-space-between; .nowrap;
+    .p-3; .shadow;
+    background-color: darkslateblue;
+    .breadcrumb {
+      .flex; .d-row; .justify-start; .align-center; .nowrap;
+      flex: 1 1 auto;
+      opacity: 0.9;
+      color: white;
+      & > * { 
+        .hide-on-mobile;
+      }
+      .voltar-icon {
+        .hide-on-web; .show-on-mobile;
+      }
+      .pagina {
+        .f-6;
+        .ph-1;
+        @media @web {
+          .f-5;
+        }        
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 20vw;
+        white-space: nowrap;
+        &.atual {
+          @media @mobile {
+            .pl-4;
+          }
+          overflow: inherit;
+          display: inherit;
+        }
+      }
+    }
+  }
+  .conteudo-produtos {
+    .flex; .d-row; .justify-end; .align-center; .p-1;
+  }
+  .produtos {
+    .flex; .d-row; .align-start; .wrap;
+    .p-2;
+    .produto {
+      .flex; .d-column; .align-center;
+      width: 10rem;
+      padding: .5rem;
+      margin: .25rem;
+      border-radius: .2rem;
+      color: #757575;
+      .valor {
+        .align-self-start;
+      }
+      .nome {
+        font-size: .9rem;
+        margin-bottom: .25rem;
+      }
+    }    
+  }
+}

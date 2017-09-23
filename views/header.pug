@@ -1,0 +1,30 @@
+doctype
+meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+#fundo-preto(style='display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: black; z-index: 2; opacity: 0.4;')
+.container-fluid.sticky-top
+  .row.p-1(style='background-color: #252525; color:#dbdbdb;')
+    .col-6
+      .text Horários disponíveis de entrega 
+    .col-6.d-flex.flex-row.flex-wrap.align-content-center.justify-content-center
+      .d-flex.flex-row.flex-nowrap 
+        .p-1.small hoje 16/05
+        .p-1 19h
+        .p-1 19h
+        .p-1 19h
+      .d-flex.flex-row.flex-nowrap 
+        .p-1.small amanhã 18/05
+        .p-1 NENHUM
+  .row(style='background-color:dimgray;')
+    .float-right.p-1
+      #logado(tabindex='1', style={display: (logado ? 'none' : '')})
+        input#username.form-control.form-control-sm.c-vm(type='textbox' name='username' placeholder='CPF ou Email' style='width:12em;display:inline-block;')
+        input#password.form-control.form-control-sm.c-vm(type='password' name='password' placeholder='Senha' style='width:12em;display:inline-block;')
+        btn.btn.btn-sm.btn-primary(onclick='logar()' style='display:inline-block;') Entrar
+        btn.btn.btn-sm.btn-link(href='javascript:void(0)' style='display:inline-block;') Cadastre-se
+        btn.btn.btn-sm.btn-link(href='javascript:void(0)' style='display:inline-block;') Esqueci minha senha 
+      #deslogado.a(style={display: (logado ? '' : 'none')})
+        span.h4.color-white.c-vm.mr-1= 'Olá '
+          strong#user-marcador= user
+        button.btn.btn-primary.btn-sm(href='javascript:void(0)' onclick='logout()') Sair
+        button.btn.btn-link.btn-sm Meus pedidos
+        button.btn.btn-link.btn-sm Meu cadastro

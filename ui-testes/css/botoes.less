@@ -1,0 +1,30 @@
+.medio {
+  font-size: .4rem;
+}
+.grande {
+  font-size: 1rem;
+  padding: .75rem;
+}
+
+button {
+  .flex; .d-row; .align-center;
+  .shadow;
+  .mh-2;
+  border: 0;
+  border-radius: .1rem;
+  padding: .5rem .75rem;
+  color: white;
+  &.add {
+    background-color: var(--cor-fundo-botao-1);
+  }
+  &.secundario,&.limpar {
+    background-color: var(--cor-fundo-botao-2);
+  }
+  &.finalizar-compra,&.salvar {
+    background-color: var(--cor-fundo-botao-3);
+  }
+  &.sem-estilo {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}

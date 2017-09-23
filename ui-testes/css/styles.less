@@ -1,0 +1,52 @@
+@import "flex";
+@import "geral";
+@import "botoes";
+@import "estrutura";
+@import "variaveis";
+@import "carrinho";
+@import "produto";
+@import "sidemenu";
+@import "body";
+@import "form";
+
+@web: ~"screen and (min-width: 500px)";
+@mobile: ~"only screen and (max-width: 500px)";
+
+.valor {
+  .f-6;
+  margin: .2rem 0;
+  &:before, span {
+    .f-2;
+    content: "R$";    
+    vertical-align: top;
+    position: relative;
+    top: .5rem;
+  }
+}
+
+.carrinho-floating-icon {
+  .flex; .justify-center; .align-center;
+  .shadow; 
+  position: absolute;
+  z-index: 5;
+  bottom: 0;
+  right: 0;
+  width: 4rem;
+  height: 4rem;
+  background-color: orange;
+  border-radius: 2rem;
+  margin: 2rem;
+  @media @web {
+    visibility: hidden;
+  }
+}
+
+.carrinho {
+  .carrinho-total {
+    .flex; .d-row; .justify-space-between; .align-center;
+    .f-4; .p-5;
+    height: 1rem;
+    color: gray;  
+    background-color: white;
+  }
+}

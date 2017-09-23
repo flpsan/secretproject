@@ -1,0 +1,27 @@
+#carrinho-render.d-flex.flex-column.my-auto
+  .produto(template='true' style='display:none;')
+    .card.m-1.p-2
+      .container-fluid
+        .row.float-right.mr-1
+          button.close(type="button", data-toggle="tooltip", data-placement="top", title="Tooltip on top", aria-label="Close", onclick='alterarQuantidadeDeProdutoNoCarrinho($(this).parents(\'.produto\').attr(\'id-produto\'), 0);')
+            span(aria-hidden="true") &times;
+        .row
+          .col-4.d-flex.align-items-center
+            .item.text-center
+              img.img.img-fluid
+          .col-8
+            .item.form-inline.mb-1
+              label.m-0.nome
+            .item.form-inline
+              label.m-0.mr-1 Valor:
+              label.m-0.valor
+            .item.form-inline
+              label.m-0.mr-1 Quantidade:
+              a.btn.btn-primary.btn-sm(data-toggle="tooltip", data-placement="top", title="Tooltip on top", href='javascript:void(0)', style='width:30px;', onclick='alterarQuantidadeDeProdutoNoCarrinho($(this).parents(\'.produto\').attr(\'id-produto\'), -1);') -
+              input.quantidade.form-control.form-control-sm.text-center(style="width:38px;display:inline-block;",type="text",disabled)
+              a.btn.btn-primary.btn-sm(href='javascript:void(0)', style='width:30px;', onclick='alterarQuantidadeDeProdutoNoCarrinho($(this).parents(\'.produto\').attr(\'id-produto\'), 1);') +
+            .item.form-inline
+              label.m-0.mr-1 Subtotal:
+              label.m-0.subtotal  
+  
+  
