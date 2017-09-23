@@ -11,7 +11,9 @@ var sqlite = require('sqlite-sync');
 var validator = require('validator');
 var flp = require('./flp-module');
 
-app.set('view engine', 'pug');
+
+//teste
+app.set('view engine', 'pug');;
 
 app.use(express.static('public'));
 app.use(passport.initialize());
