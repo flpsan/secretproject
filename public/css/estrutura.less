@@ -1,0 +1,59 @@
+.body .main {
+  overflow: auto;
+  display: block;
+}
+.body .main .submain {
+  .wrap;
+  min-height: ~"calc(100vh - var(--header-height) - var(--footer-height))";
+}
+.body .main .footer {
+  height: var(--footer-height);
+}
+.wrapper {
+  .flex; .d-row; .nowrap;
+  overflow: hidden;
+  height: 100vh;
+  .sidemenu {
+    @media @mobile {
+      display: none;
+    }
+    @media @web {
+      .flex; .d-column;
+      flex: 0 0 var(--carrinho-width);
+    }
+    z-index: 10;
+    height: 100vh;
+    overflow: auto;
+  }
+  .central {
+    .flex; .d-column;
+    flex: 1 1 auto;
+    height: 100vh;
+    overflow: auto;
+    .head {
+      .flex; .d-row; .align-center; 
+      .p-3;
+      height: var(--header-height);
+      background-color: black;
+      .icon-menu {
+        .hide-on-web;
+        .mr-6;
+      }
+    }
+    .body {
+      .flex; .d-column; .nowrap;
+      height: ~"calc(100vh - var(--header-height))";
+    }
+  }
+  .carrinho {
+    height: 100vh;
+    overflow: auto;
+    @media @mobile {
+      display: none;
+    }
+    @media @web {
+      .flex; .d-column;
+      flex: 0 0 var(--carrinho-width);
+    }
+  }
+}

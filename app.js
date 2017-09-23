@@ -114,7 +114,7 @@ app.get('/listar-produtos', variaveisTelaMiddleware, function(req, res){
     sqlite.close();
     req.app.locals.templateVars.produtos = produtos;
     console.log('req.app.locals.templateVars.logado:'+ req.app.locals.templateVars.logado)
-    res.render('produtos', req.app.locals.templateVars);
+    res.render('listar-produtos', req.app.locals.templateVars);
 });
 
 app.get('/salvar-compra', variaveisTelaMiddleware, function(req, res){
