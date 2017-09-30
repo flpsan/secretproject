@@ -1,0 +1,23 @@
+extends layout
+
+block breadcrumb
+  .voltar-icon
+    +svg('voltar')  
+  if typeof subcategoria === 'undefined'
+    .pagina.atual= categoria.nome
+  else
+    .pagina= categoria.nome
+    +svg('separador')
+    .pagina.atual= subcategoria.nome_subcategoria
+  
+block conteudo
+  if erro
+    div= mensagem
+  else
+    each produto in produtos
+      div= produto.id
+      div= produto.nome
+      div= produto.valor_formatado
+      div= produto.fabricante
+      div= produto.volume_peso
+      button(onclick='carrinho.add(this);' data=produto) add

@@ -1,0 +1,12 @@
+extends layout
+
+block breadcrumb
+  .voltar-icon: +svg('voltar')  
+  .pagina.atual Meu Cadastro
+
+  
+block conteudo
+  if erro
+    div= mensagem
+  else
+    xiripa bacana

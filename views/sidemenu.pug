@@ -1,0 +1,33 @@
+include mixin-svg
+
+mixin item(menu)
+  each item in menu
+    .linha-tipo-2
+      .conteudo
+        +svg(item.icone)
+        a.ml-6(href='/produtos?categoria=' + item.categoria.codigo) #{item.categoria.nome}
+      .arrow: +svg('ic_arrow_drop_down_black_18px')
+    each subcategoria in item.subcategorias
+      .linha-tipo-3
+        a.ml-6(href='/produtos?categoria=' + item.categoria.codigo + '&subcategoria='+subcategoria.codigo) #{subcategoria.nome}
+        
+.sidemenu
+  .linha-tipo-1
+    img
+    .p-2.bold.f-4 nome usuário
+  .linha-tipo-1
+    img
+    a.ml-6(href='/pedidos') Meus pedidos
+  .linha-tipo-1
+    img
+    a.ml-6(href='/cadastro') Meu cadastro
+  .divider
+  div Categorias
+  +item(
+    [
+      { categoria: { codigo: 1, nome: 'Frango' }, icone: 'ic_child_care_black_18px', subcategorias: [
+        { codigo: 1, nome: 'Frango' }, { codigo: 2, nome: 'Frango' }
+      ] }, 
+      { categoria: { codigo: 2, nome: 'Outra' }, icone: 'ic_child_care_black_18px', subcategorias: [] }
+    ]
+  )

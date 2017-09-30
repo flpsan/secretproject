@@ -29,6 +29,8 @@ sqlite.connect('myDatabase.db');
 var categorias = sqlite.run("SELECT * FROM categoria");
 var subcategorias = sqlite.run("select (select count(subcategoria) from produto p where p.subcategoria = s.id) as quantidade_produtos, c.id as id_categoria, s.id as id_subcategoria, c.nome as nome_categoria, s.nome as nome_subcategoria from categoria c inner join subcategoria s on c.id=s.id_categoria");
 
+console.log(subcategorias);
+
 sqlite.close();
     
 
@@ -85,14 +87,6 @@ var somenteAceitaAjax = function(req, res, next){
 };
 
 
-//--- ROTAS -----
-app.get('/', variaveisTelaMiddleware, function(req, res){
-	res.render('index', req.app.locals.templateVars);
-});
-
-app.get('/carrinho-completo', variaveisTelaMiddleware, function(req, res){
-	res.render('carrinho-completo', req.app.locals.templateVars);
-});
 
 app.get('/get-produto', variaveisTelaMiddleware, function(req, res){
     var sql = "select *, printf('%d,%02d', valor/100, valor%100) AS valor_formatado from produto";
@@ -104,17 +98,49 @@ app.get('/get-produto', variaveisTelaMiddleware, function(req, res){
     res.send(produtos);
 });
 
-app.get('/listar-produtos', variaveisTelaMiddleware, function(req, res){
+
+//--- ROTAS -----
+app.get('/', variaveisTelaMiddleware, function(req, res){
+	res.render('index', req.app.locals.templateVars);
+});
+
+app.get('/produtos', variaveisTelaMiddleware, function(req, res){
+    if (req.query.categoria === undefined) {
+      return res.status(400).end('Categoria é um parâmetro obrigatório.');
+    }
+    var categoria = categorias.find(function(categoria){return categoria.id == req.query.categoria});
+    if (categoria === undefined) {
+      return res.status(400).end('Categoria inexistente.');
+    }
+    req.app.locals.templateVars.categoria = categoria;
+    
+    if (req.query.subcategoria !== undefined && req.query.subcategoria !== '') {
+      var subcategoria = subcategorias.find(function(subcategoria){return subcategoria.id_categoria == req.query.categoria && subcategoria.id_subcategoria == req.query.subcategoria});
+      req.app.locals.templateVars.subcategoria = subcategoria;
+      if (subcategoria === undefined) {
+        return res.status(400).end('Subcategoria inexistente');
+      }
+    }
+  
     var sql = "select *, printf('%d,%02d', valor/100, valor%100) AS valor_formatado from produto";
     sql += flp.montarWhere(sql, 'categoria', req.query.categoria);
     sql += flp.montarWhere(sql, 'subcategoria', req.query.subcategoria);
     sqlite.connect('myDatabase.db');
-    console.log(sql);
     var produtos = sqlite.run(sql);
     sqlite.close();
-    req.app.locals.templateVars.produtos = produtos;
-    console.log('req.app.locals.templateVars.logado:'+ req.app.locals.templateVars.logado)
-    res.render('listar-produtos', req.app.locals.templateVars);
+    
+    if (produtos.length === 0) {
+      req.app.locals.templateVars.erro = true;
+      req.app.locals.templateVars.mensagem = 'Nenhum produto encontrado.';
+    } else {
+      req.app.locals.templateVars.produtos = produtos;
+    }
+    
+    res.render('produtos', req.app.locals.templateVars);
+});
+
+app.get('/cadastro', variaveisTelaMiddleware, function(req, res){
+  res.render('cadastro', req.app.locals.templateVars);
 });
 
 app.get('/salvar-compra', variaveisTelaMiddleware, function(req, res){

@@ -1,0 +1,18 @@
+include mixin-svg
+
+doctype html
+head
+  include head-padrao  
+body(style='background-color:#F1F2F2')
+  .wrapper
+    include sidemenu
+    .central
+      .head
+        logo
+      .body
+        .topo
+          .breadcrumb
+            block breadcrumb
+        block conteudo
+    .carrinho
+      div b
